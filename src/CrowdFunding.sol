@@ -88,11 +88,11 @@ contract CrowdFunding {
         if(campaign.claimed == true) revert AlreadyClaimedFunds();
         
          campaign.claimed = true;
-
-        (bool sent, ) = msg.sender.call{value: campaign.fundsRaised}("");
-        if(!sent) revert FundClaimFail();
+         campaign.fundsRaised = 0;
 
         emit SuccessFundClaimed(_campaignId, msg.sender);
+        (bool sent, ) = msg.sender.call{value: campaign.fundsRaised}("");
+        if(!sent) revert FundClaimFail();
     }
 
     // Run test here by starting the campaign and faking with deadline reached timestamp
@@ -105,8 +105,10 @@ contract CrowdFunding {
          
         if(campaign.fundsRaised >= campaign.fundingGoal) revert CannotWithdrawWhenGoalReached(campaign.fundsRaised, campaign.fundingGoal);
          
+        campaign.contributions[msg.sender] = 0;
+
+        emit SuccessFundClaimed(_campaignId,msg.sender);
         (bool sent, ) = msg.sender.call{value: campaign.contributions[msg.sender]}("");
         if(!sent) revert FundClaimFail();
-        emit SuccessFundClaimed(_campaignId,msg.sender);
     }
 }

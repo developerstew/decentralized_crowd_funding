@@ -1,6 +1,12 @@
-[profile.default]
-src = "src"
-out = "out"
-libs = ["lib"]
+[rpc_endpoints]
+anvil = "http://127.0.0.1:8545"
+mainnet = "https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}"
+sepolia = "https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}"
+arbitrum_one = "https://arb-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}"
+arbitrum_one_sepolia = "https://arb-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}"
 
-# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
+[etherscan]
+mainnet = { key = "${ETHERSCAN_API_KEY}", chain = 1 }
+sepolia = { key = "${ETHERSCAN_API_KEY}", chain = 11155111 }
+arbitrum_one = { key = "${ARBISCAN_API_KEY}", chain = 42161 }
+arbitrum_one_sepolia = { key = "${ARBISCAN_API_KEY}", chain = 421614 }
